@@ -1,0 +1,15 @@
+ecoindex:
+  version: VERSION
+  js:
+    dist/ecoindex.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupalSettings
+    - core/drupal.message
+  css:
+    component:
+      css/ecoindex.css: {}
+
+badge:
+  js:
+    https://cdn.jsdelivr.net/gh/cnumr/ecoindex_badge@3/assets/js/ecoindex-badge.js : {type: external, minified: true}

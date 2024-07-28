@@ -1,0 +1,10 @@
+.ecoindex-toolbar-tab {
+  padding: 1em;
+  font-weight: bold;
+}
+
+.ecoindex-toolbar-tab span {
+  padding: 1em;
+  background: #FFF;
+  color: #000;
+}
