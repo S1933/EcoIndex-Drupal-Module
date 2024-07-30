@@ -1,0 +1,4 @@
+administer ecoindex settings:
+  title: 'Administer EcoIndex settings'
+update ecoindex field:
+  title: 'Update EcoIndex field'

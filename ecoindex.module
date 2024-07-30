@@ -1,6 +1,7 @@
 <?php
 
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\node\NodeInterface;
 
 /**
  * Implements hook_help().
@@ -9,73 +10,44 @@ function ecoindex_help($route_name, RouteMatchInterface $route_match) {
   switch ($route_name) {
     case 'help.page.ecoindex':
       $output = '';
-      $output .= '<h2>' . t('Gestion des images et animations') . '</h2>';
-      $output .= '<p>' . t("Optimiser et générer les images avant importation dans le CMS") . '</p>';
-      $output .= '<p>' . t("Utiliser une image lorsqu'elle est porteuse d'information") . '</p>';
-      $output .= '<p>' . t("Proposer une alternative textuelle") . '</p>';
-      $output .= '<p>' . t("Limiter les animations") . '</p>';
-      $output .= '<p>' . t("Éviter les GIFs animés") . '</p>';
-      $output .= '<p>' . t("Éviter les carrousels (bannir le défilement automatique)") . '</p>';
-      $output .= '<p>' . t("Privilégier les changements instantanés plutôt qu’animés (Javascript)") . '</p>';
-      $output .= '<p>' . t("Préférer la pagination au défilement infini") . '</p>';
-      $output .= '<h2>' . t('Gestion des vidéos et des sons') . '</h2>';
-      $output .= '<p>' . t("Bannir les fonds vidéos") . '</p>';
-      $output .= '<p>' . t("Utiliser un contenu vidéo ou audio lorsqu'il est porteur d'information") . '</p>';
-      $output .= '<p>' . t("Éviter la lecture et le chargement automatique des vidéos et des sons") . '</p>';
-      $output .= '<p>' . t("Adapter les vidéos et les sons aux contextes de lecture (taille et définition)") . '</p>';
-      $output .= '<p>' . t("Proposer une alternative textuelle") . '</p>';
-      $output .= '<p>' . t("Proposer un mode 'écoute seule' pour les vidéos") . '</p>';
-      $output .= '<h2>' . t("Gestion des documents") . '</h2>';
-      $output .= '<p>' . t("Compresser et optimiser les documents") . '</p>';
-      $output .= '<p>' . t("Fournir un résumé des documents") . '</p>';
-      $output .= '<p>' . t("Informer sur le poids et le format des fichiers à télécharger") . '</p>';
-      $output .= '<h2>' . t("Gestion des liens") . '</h2>';
-      $output .= '<p>' . t("Vérifier que les urls de destination sont bien valides") . '</p>';
+      $output .= '<h2>' . t('Image and animation management') . '</h2>';
+      $output .= '<p>' . t("Optimize and generate images before importing them into the CMS") . '</p>';
+      $output .= '<p>' . t("Use images to convey information") . '</p>';
+      $output .= '<p>' . t("Propose a text alternative") . '</p>';
+      $output .= '<p>' . t("Limit animations") . '</p>';
+      $output .= '<p>' . t("Avoid animated GIFs") . '</p>';
+      $output .= '<p>' . t("Avoid carousels (avoid automatic scrolling)") . '</p>';
+      $output .= '<p>' . t("Use instant changes rather than animated changes (Javascript)") . '</p>';
+      $output .= '<p>' . t("Prefer pagination to infinite scrolling") . '</p>';
+      $output .= '<h2>' . t('Video and sound management') . '</h2>';
+      $output .= '<p>' . t("Ban video backgrounds") . '</p>';
+      $output .= '<p>' . t("Use video or audio content when it conveys information") . '</p>';
+      $output .= '<p>' . t("Avoid automatic playback and loading of videos and sounds") . '</p>';
+      $output .= '<p>' . t("Adapt videos and sounds to reading contexts (size and definition)") . '</p>';
+      $output .= '<p>' . t("Offer a text alternative") . '</p>';
+      $output .= '<p>' . t("Offer a 'listen only' mode for videos") . '</p>';
+      $output .= '<h2>' . t("Document management") . '</h2>';
+      $output .= '<p>' . t("Compress and optimize documents") . '</p>';
+      $output .= '<p>' . t("Provide document summaries") . '</p>';
+      $output .= '<p>' . t("Provide information on file size and format for downloading") . '</p>';
+      $output .= '<h2>' . t("Link management") . '</h2>';
+      $output .= '<p>' . t("Check that destination urls are valid") . '</p>';
 
       return $output;
   }
 }
 
 /**
- * Implements hook_toolbar().
+ * Implements hook_page_attachments_alter().
  */
-function ecoindex_toolbar() {
-  $items = [];
-  $items['ecoindex'] = [
-    '#cache' => [
-      'contexts' => [
-        'url.query_args',
-        'url.path',
-      ],
-    ],
-  ];
-
-  $route_name = \Drupal::routeMatch()->getRouteName();
-  $node = \Drupal::routeMatch()->getParameter('node');
-  if ($route_name != 'entity.node.canonical' || !$node->hasField('field_ecoindex')) {
-    return $items;
+function ecoindex_page_attachments_alter(array &$attachments) {
+  $node = \Drupal::routeMatch()->getParameter('node_preview');
+  if ($node instanceof NodeInterface && $node->hasField('field_ecoindex')) {
+    $settings = \Drupal::config('ecoindex.settings');
+    $attachments['#attached']['library'][] = 'ecoindex/ecoindex';
+    $attachments['#attached']['drupalSettings']['ecoindex'] = [
+      'value' => $node->get('field_ecoindex')->getString(),
+      'minimum_score' => $settings->get('minimum_score'),
+    ];
   }
-
-  $host = \Drupal::request()->getHost();
-  $items['ecoindex'] = $items + [
-    'tab' => [
-      '#type' => 'html_tag',
-      '#tag' => 'div',
-      '#value' => '<span class="ecoindex-score"></span><span class="ecoindex-grade"></span>',
-    ],
-    '#wrapper_attributes' => [
-      'class' => ['ecoindex-toolbar-tab'],
-    ],
-    '#weight' => 10000,
-    '#attached' => [
-      'library' => ['ecoindex/ecoindex'],
-      'drupalSettings' => [
-        'ecoindex' => [
-          'key' => $host . ':ecoindex:node:' . $node->id(),
-        ],
-      ],
-    ],
-  ];
-
-  return $items;
 }

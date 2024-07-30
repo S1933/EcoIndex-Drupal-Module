@@ -4,6 +4,9 @@ ecoindex.settings:
   type: config_object
   label: 'EcoIndex settings'
   mapping:
-    warning:
-      type: string
-      label: 'Warning ecoindex'
+    minimum_score:
+      type: integer
+      label: 'Minimum score to alert contributor'
+    required_to_publish:
+      type: boolean
+      label: 'Is required to publish content'

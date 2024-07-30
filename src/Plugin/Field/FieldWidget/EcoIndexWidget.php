@@ -8,7 +8,6 @@ use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\Core\Url;
 use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -81,32 +80,15 @@ class EcoIndexWidget extends WidgetBase implements ContainerFactoryPluginInterfa
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
-    $element['#description'] = '
-      <p>' . $this->t('<a href="/admin/help/ecoindex" target="_blank">Best practice contribution</a>') . '</p>
-      <p>' . $this->t('<a href="https://www.ecoindex.fr" target="_blank">Advanced analyse on ecoindex.fr</a>') . '</p>
-    ';
-
     $element['value'] = $element + [
       '#type' => 'number',
       '#min' => 0,
       '#max' => 100,
       '#default_value' => $items[$delta]->value ?? 0,
+      '#disabled' => TRUE,
     ];
 
-    $node = $this->routeMatch->getParameter('node');
-    if ($node instanceof NodeInterface) {
-      $request = $this->requestStack->getCurrentRequest();
-      $element['value']['#attached'] = [
-        'library' => [
-          'ecoindex/ecoindex',
-        ],
-        'drupalSettings' => [
-          'ecoindex' => [
-            'key' => $request->getHost() . ':ecoindex:node:' . $node->id(),
-          ],
-        ],
-      ];
-    }
+    $element['#description'] = '<p>' . $this->t('<a href="/admin/help/ecoindex" target="_blank">Contributor guidelines</a>') . '</p>';
 
     return $element;
   }

@@ -1,0 +1,65 @@
+msgid "Image and animation management"
+msgstr "Gestion des images et animations"
+
+msgid "Optimize and generate images before importing them into the CMS"
+msgstr "Optimiser et générer les images avant importation dans le CMS"
+
+msgid "Use images to convey information"
+msgstr "Utiliser une image lorsqu'elle est porteuse d'information"
+
+msgid "Propose a text alternative"
+msgstr "Proposer une alternative textuelle"
+
+msgid "Limit animations"
+msgstr "Limiter les animations"
+
+msgid "Avoid animated GIFs"
+msgstr "Éviter les GIFs animés"
+
+msgid "Avoid carousels (avoid automatic scrolling)"
+msgstr "Éviter les carrousels (bannir le défilement automatique)"
+
+msgid "Use instant changes rather than animated changes (Javascript)"
+msgstr "Privilégier les changements instantanés plutôt qu’animés (Javascript)"
+
+msgid "Prefer pagination to infinite scrolling"
+msgstr "Préférer la pagination au défilement infini"
+
+msgid "Video and sound management"
+msgstr "Gestion des vidéos et des sons"
+
+msgid "Ban video backgrounds"
+msgstr "Bannir les fonds vidéos"
+
+msgid "Use video or audio content when it conveys information"
+msgstr "Utiliser un contenu vidéo ou audio lorsqu'il est porteur d'information"
+
+msgid "Avoid automatic playback and loading of videos and sounds"
+msgstr "Éviter la lecture et le chargement automatique des vidéos et des sons"
+
+msgid "Adapt videos and sounds to reading contexts (size and definition)"
+msgstr "Adapter les vidéos et les sons aux contextes de lecture (taille et définition)"
+
+msgid "Offer a text alternative"
+msgstr "Proposer une alternative textuelle"
+
+msgid "Offer a 'listen only' mode for videos"
+msgstr "Proposer un mode 'écoute seule' pour les vidéos"
+
+msgid "Document management"
+msgstr "Gestion des documents"
+
+msgid "Compress and optimize documents"
+msgstr "Compresser et optimiser les documents"
+
+msgid "Provide document summaries"
+msgstr "Fournir un résumé des documents"
+
+msgid "Provide information on file size and format for downloading"
+msgstr "Informer sur le poids et le format des fichiers à télécharger"
+
+msgid "Link management"
+msgstr "Gestion des liens"
+
+msgid "Check that destination urls are valid"
+msgstr "Vérifier que les urls de destination sont bien valides"

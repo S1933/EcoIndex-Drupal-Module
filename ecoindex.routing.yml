@@ -1,0 +1,7 @@
+ecoindex.settings:
+  path: '/admin/structure/ecoindex/settings'
+  defaults:
+    _form: '\Drupal\ecoindex\Form\EcoIndexSettingsForm'
+    _title: 'EcoIndex settings'
+  requirements:
+    _permission: 'administer ecoindex settings'
