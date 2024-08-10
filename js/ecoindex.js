@@ -1,47 +1,75 @@
-import { computeEcoIndex, getEcoIndexGrade } from "ecoindex";
-
 ((Drupal, drupalSettings) => {
-  console.log("passe ici ?");
   const messages = new Drupal.Message();
   messages.clear();
 
   // Number of elements.
-  const numberOfElements = document.getElementsByTagName("*:not(#toolbar-administration, #node-preview-form-select)").length;
+  const elementCount = document.querySelectorAll("*:not(#toolbar-administration, #node-preview-form-select)").length;
 
   // Number of requests.
   const resources = performance.getEntriesByType("resource");
-  const numberOfRequests = resources.length;
+  const requestCount = resources.length;
 
   // Total size (KB).
   const totalSizeKB = resources.reduce((total, resource) => total + resource.transferSize, 0) / 1024;
 
   // Get EcoIndex score.
-  const ecoIndex = Number(computeEcoIndex(numberOfElements, numberOfRequests, totalSizeKB));
-  const score = Math.round(ecoIndex);
+  const ecoIndex = computeEcoIndex(elementCount, requestCount, totalSizeKB);
+  const score = Math.round(Number(ecoIndex));
+  const minimumScore = drupalSettings.ecoindex.minimum_score;
 
-  // Get EcoIndex grade.
-  const grade = getEcoIndexGrade(ecoIndex);
+  messages.add(`EcoIndex ${score}`);
+  if (minimumScore > 0 && score < minimumScore) {
+    messages.add(`Minimum score ${minimumScore}`, { type: "warning" });
+  }
 
-  // Set localstorage.
-  // localStorage.setItem(key, score);
+  async function fetchToken() {
+    const url = "/session/token";
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Response status: ${response.status}`);
+      }
+      return response.text();
+    } catch (error) {
+      console.error(error.message);
+      throw error;
+    }
+  }
 
-  messages.add("EcoIndex " + score);
+  function updateEcoIndexField(token) {
+    const headers = new Headers({
+      "Content-Type": "application/json",
+      "X-CSRF-Token": token,
+    });
 
-  // const spanScore = document.querySelector(".ecoindex-score");
-  // if (spanScore) spanScore.textContent = "EcoIndex " + score;
+    const body = JSON.stringify({
+      type: [{ target_id: drupalSettings.ecoindex.content_type }],
+      field_ecoindex: [{ value: score }],
+    });
 
-  // const spanGrade = document.querySelector(".ecoindex-grade");
-  // if (spanGrade) {
-  //   spanGrade.textContent = "Grade " + grade;
+    const requestOptions = {
+      method: "PATCH",
+      headers: headers,
+      body: body,
+      redirect: "follow",
+    };
 
-  //   const gradeColors = {
-  //     A: "#2e9b43",
-  //     B: "#34bc6e",
-  //     C: "#cadd00",
-  //     D: "#f7ed00",
-  //     E: "#ffce00",
-  //     F: "#fb9929",
-  //   };
-  //   spanGrade.style.background = gradeColors[grade] || "#f01c16";
-  // }
+    const url = `/node/${drupalSettings.ecoindex.nid}?_format=json`;
+
+    fetch(url, requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.error("error", error));
+  }
+
+  async function updateEcoIndex() {
+    try {
+      const token = await fetchToken();
+      updateEcoIndexField(token);
+    } catch (error) {
+      console.error("Failed to update EcoIndex field", error);
+    }
+  }
+
+  updateEcoIndex();
 })(Drupal, drupalSettings);

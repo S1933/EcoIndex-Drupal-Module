@@ -1,5 +1,6 @@
 <?php
 
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\node\NodeInterface;
 
@@ -42,12 +43,20 @@ function ecoindex_help($route_name, RouteMatchInterface $route_match) {
  */
 function ecoindex_page_attachments_alter(array &$attachments) {
   $node = \Drupal::routeMatch()->getParameter('node_preview');
-  if ($node instanceof NodeInterface && $node->hasField('field_ecoindex')) {
-    $settings = \Drupal::config('ecoindex.settings');
+  if ($node instanceof NodeInterface &&
+    $node->preview_view_mode === 'full' &&
+    $node->hasField('field_ecoindex')
+  ) {
+    // Add ecoindex library.
     $attachments['#attached']['library'][] = 'ecoindex/ecoindex';
+
+    // Add drupalSettings.
+    $settings = \Drupal::config('ecoindex.settings');
     $attachments['#attached']['drupalSettings']['ecoindex'] = [
       'value' => $node->get('field_ecoindex')->getString(),
       'minimum_score' => $settings->get('minimum_score'),
+      'content_type' => $node->bundle(),
+      'nid' => $node->id(),
     ];
   }
 }

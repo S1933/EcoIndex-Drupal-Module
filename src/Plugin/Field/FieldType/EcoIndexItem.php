@@ -15,7 +15,7 @@ use Drupal\Core\TypedData\DataDefinition;
  *   module = "ecoindex",
  *   description = @Translation("EcoIndex."),
  *   default_widget = "ecoindex_widget",
- *   default_formatter = "list_default"
+ *   default_formatter = "ecoindex_formatter"
  * )
  */
 class EcoIndexItem extends FieldItemBase {
@@ -42,6 +42,17 @@ class EcoIndexItem extends FieldItemBase {
         ],
       ],
     ];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getConstraints() {
+    $constraints = parent::getConstraints();
+    $constraint_manager = $this->getTypedDataManager()->getValidationConstraintManager();
+    $constraints[] = $constraint_manager->create('EcoIndexFieldConstraint', []);
+
+    return $constraints;
   }
 
 }

@@ -1,15 +1,18 @@
 ecoindex:
   version: VERSION
   js:
-    dist/ecoindex.js: {}
+    js/scripts.js: {}
   dependencies:
     - core/drupal
     - core/drupalSettings
     - core/drupal.message
-  css:
-    component:
-      css/ecoindex.css: {}
+    - ecoindex/cnumr.ecoindex_js
 
-badge:
+cnumr.ecoindex_js:
+  remote: https://github.com/cnumr/ecoindex_js
+  version: 1.0.5
+  license:
+    name: CC-BY-NC-ND-3.0
+    url: https://github.com/cnumr/ecoindex_js/blob/1.x/LICENSE
   js:
-    https://cdn.jsdelivr.net/gh/cnumr/ecoindex_badge@3/assets/js/ecoindex-badge.js : {type: external, minified: true}
+    js/ecoindex_js.js: { }

@@ -6,3 +6,5 @@ core_version_requirement: ^9.4 || ^10 || ^11
 dependencies:
   - drupal:rest
 configure: ecoindex.settings
+interface translation project: ecoindex
+interface translation server pattern: modules/ecoindex/translations/ecoindex.%language.po
