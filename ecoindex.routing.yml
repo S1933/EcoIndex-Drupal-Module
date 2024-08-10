@@ -3,6 +3,5 @@ ecoindex.settings:
   defaults:
     _form: '\Drupal\ecoindex\Form\EcoIndexSettingsForm'
     _title: 'EcoIndex settings'
-  parent: system.admin_config_services
   requirements:
     _permission: 'administer ecoindex settings'

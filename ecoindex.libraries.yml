@@ -1,14 +1,31 @@
-ecoindex:
+ecoindex.preview:
   version: VERSION
   js:
-    js/scripts.js: {}
+    js/preview.js: {}
   dependencies:
     - core/drupal
     - core/drupalSettings
     - core/drupal.message
-    - ecoindex/cnumr.ecoindex_js
+    - ecoindex/cnumr.ecoindex
 
-cnumr.ecoindex_js:
+ecoindex.edit:
+  version: VERSION
+  js:
+    js/edit.js: {}
+  dependencies:
+    - core/drupal
+    - core/drupal.message
+    - core/drupalSettings
+
+ecoindex.icon:
+  version: VERSION
+  css:
+    theme:
+      css/ecoindex.icon.theme.css: {}
+  dependencies:
+    - field_ui/drupal.field_ui.manage_fields
+
+cnumr.ecoindex:
   remote: https://github.com/cnumr/ecoindex_js
   version: 1.0.5
   license:

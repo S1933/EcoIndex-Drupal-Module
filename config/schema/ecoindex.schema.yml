@@ -10,3 +10,14 @@ ecoindex.settings:
     required_to_publish:
       type: boolean
       label: 'Is required to publish content'
+
+diff.plugin.settings.ecoindex_field_diff_builder:
+  type: diff.plugin.settings_base
+  label: 'Settings for EcoIndex field diff builder plugin'
+  mapping:
+    compare_score:
+      type: integer
+      label: 'Compare the score value'
+    compare_grade:
+      type: text
+      label: 'Compare the grade value'

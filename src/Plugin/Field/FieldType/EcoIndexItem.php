@@ -14,10 +14,10 @@ use Drupal\Core\TypedData\DataDefinition;
  *   id = "ecoindex",
  *   label = @Translation("EcoIndex field"),
  *   module = "ecoindex",
- *   description = @Translation("EcoIndex."),
+ *   description = @Translation("Store EcoIndex score and grade value."),
  *   default_widget = "ecoindex_widget",
- *   default_formatter = "ecoindex_grade_formatter",
- *   constraints = {"EcoIndexFieldConstraint" = {}}
+ *   default_formatter = "ecoindex_score_formatter",
+ *   constraints = {"EcoIndexField" = {}}
  * )
  */
 class EcoIndexItem extends FieldItemBase {
@@ -58,15 +58,22 @@ class EcoIndexItem extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
-  public function getGrade(): ?string {
-    return $this->grade ?: NULL;
+  public function getGrade(): string {
+    return $this->grade ?: '';
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getScore(): ?int {
-    return $this->score ?: NULL;
+  public function getScore(): int {
+    return $this->score ?: 0;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function mainPropertyName() {
+    return 'score';
   }
 
 }

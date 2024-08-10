@@ -1,8 +1,7 @@
 <?php
 
-use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\node\NodeInterface;
+use Drupal\Core\Field\FieldTypeCategoryManagerInterface;
 
 /**
  * Implements hook_help().
@@ -42,32 +41,50 @@ function ecoindex_help($route_name, RouteMatchInterface $route_match) {
  * Implements hook_page_attachments_alter().
  */
 function ecoindex_page_attachments_alter(array &$attachments) {
-  if (\Drupal::routeMatch()->getRouteName() !== 'entity.node.preview') {
-    return [];
+  $route_name = \Drupal::routeMatch()->getRouteName();
+
+  // Add library and drupalSettings on preview node route.
+  if ($route_name === 'entity.node.preview') {
+    // Get current node.
+    $node = \Drupal::routeMatch()->getParameter('node_preview');
+    $ecoindexField = \Drupal::service('ecoindex.helper')->getEcoIndexFieldName($node->getFields());
+    if ($ecoindexField && $node->preview_view_mode === 'full') {
+      // Add ecoindex library.
+      $attachments['#attached']['library'][] = 'ecoindex/ecoindex.preview';
+
+      // Add drupalSettings.
+      $settings = \Drupal::config('ecoindex.settings');
+
+      // Get current value for EcoIndex field.
+      $value = $node->get($ecoindexField)->getValue();
+
+      // Send related information to drupalSettings.
+      $attachments['#attached']['drupalSettings']['ecoindex'] = [
+        'score' => $value[0]['score'] ?? 0,
+        'grade' => $value[0]['grade'] ?? '',
+        'minimum_score' => $settings->get('minimum_score'),
+        'nid' => $node->id(),
+      ];
+    }
   }
 
-  // Has EcoIndex field type ?
-  $node = \Drupal::routeMatch()->getParameter('node_preview');
-  $ecoindexField = \Drupal::service('ecoindex.helper')->getEcoIndexFieldName($node->getFields());
-
-  if ($node->preview_view_mode === 'full' && $ecoindexField) {
-    // Add ecoindex library.
-    $attachments['#attached']['library'][] = 'ecoindex/ecoindex';
-
-    // Add drupalSettings.
-    $settings = \Drupal::config('ecoindex.settings');
-
-    // Get current value for EcoIndex field.
-    $value = $node->get($ecoindexField)->getValue();
-
+  // Add library and drupalSettings on edit form node route.
+  if ($route_name === 'entity.node.edit_form') {
+    // Get current node.
+    $node = \Drupal::routeMatch()->getParameter('node');
+    $attachments['#attached']['library'][] = 'ecoindex/ecoindex.edit';
     // Send related information to drupalSettings.
     $attachments['#attached']['drupalSettings']['ecoindex'] = [
-      'score' => $value['score'] ?? '',
-      'grade' => $value['grade'] ?? '',
-      'minimum_score' => $settings->get('minimum_score'),
-      'content_type' => $node->bundle(),
       'nid' => $node->id(),
-      'ecoindex_field_name' => $ecoindexField,
     ];
   }
+}
+
+/**
+ * Implements hook_field_type_category_info_alter().
+ */
+function ecoindex_field_type_category_info_alter(&$definitions) {
+  // The `ecoindex` field type belongs in the `general` category, so the libraries
+  // need to be attached using an alter hook.
+  $definitions[FieldTypeCategoryManagerInterface::FALLBACK_CATEGORY]['libraries'][] = 'ecoindex/ecoindex.icon';
 }
