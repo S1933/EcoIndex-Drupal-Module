@@ -80,15 +80,23 @@ class EcoIndexWidget extends WidgetBase implements ContainerFactoryPluginInterfa
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
-    $element['value'] = $element + [
+    /** @var \Drupal\ecoindex\Plugin\Field\FieldType\EcoIndexItem $item */
+    $item = $items[$delta];
+
+    $element['score'] = [
+      '#title' => $this->t('Score'),
       '#type' => 'number',
       '#min' => 0,
       '#max' => 100,
-      '#default_value' => $items[$delta]->value ?? 0,
-      '#disabled' => TRUE,
+      '#default_value' => $item->getScore(),
     ];
 
-    $element['#description'] = '<p>' . $this->t('<a href="/admin/help/ecoindex" target="_blank">Contributor guidelines</a>') . '</p>';
+    $element['grade'] = [
+      '#title' => $this->t('Grade'),
+      '#type' => 'textfield',
+      '#default_value' => $items[$delta]->getGrade(),
+      '#description' => '<p>' . $this->t('<a href="/admin/help/ecoindex" target="_blank">Contributor guidelines</a>') . '</p>',
+    ];
 
     return $element;
   }

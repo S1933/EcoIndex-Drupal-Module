@@ -9,14 +9,14 @@ use Drupal\Core\Field\FormatterBase;
  * Plugin implementation of the EcoIndex field formatter.
  *
  * @FieldFormatter(
- *    id = "ecoindex_formatter",
- *    label = @Translation("EcoIndex formatter"),
+ *    id = "ecoindex_grade_formatter",
+ *    label = @Translation("EcoIndex grade formatter"),
  *    field_types = {
  *      "ecoindex",
  *    }
  * )
  */
-class EcoIndexFormatter extends FormatterBase {
+class EcoIndexGradeFormatter extends FormatterBase {
 
   /**
    * {@inheritdoc}
@@ -27,7 +27,7 @@ class EcoIndexFormatter extends FormatterBase {
     foreach ($items as $delta => $item) {
       $entity = $items->getEntity();
       $elements[$delta] = [
-        '#plain_text' => $item->value,
+        '#plain_text' => $item->getScore(),
         '#cache' => [
           'tags' => $entity->getCacheTags(),
         ],

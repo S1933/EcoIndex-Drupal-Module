@@ -42,21 +42,32 @@ function ecoindex_help($route_name, RouteMatchInterface $route_match) {
  * Implements hook_page_attachments_alter().
  */
 function ecoindex_page_attachments_alter(array &$attachments) {
+  if (\Drupal::routeMatch()->getRouteName() !== 'entity.node.preview') {
+    return [];
+  }
+
+  // Has EcoIndex field type ?
   $node = \Drupal::routeMatch()->getParameter('node_preview');
-  if ($node instanceof NodeInterface &&
-    $node->preview_view_mode === 'full' &&
-    $node->hasField('field_ecoindex')
-  ) {
+  $ecoindexField = \Drupal::service('ecoindex.helper')->getEcoIndexFieldName($node->getFields());
+
+  if ($node->preview_view_mode === 'full' && $ecoindexField) {
     // Add ecoindex library.
     $attachments['#attached']['library'][] = 'ecoindex/ecoindex';
 
     // Add drupalSettings.
     $settings = \Drupal::config('ecoindex.settings');
+
+    // Get current value for EcoIndex field.
+    $value = $node->get($ecoindexField)->getValue();
+
+    // Send related information to drupalSettings.
     $attachments['#attached']['drupalSettings']['ecoindex'] = [
-      'value' => $node->get('field_ecoindex')->getString(),
+      'score' => $value['score'] ?? '',
+      'grade' => $value['grade'] ?? '',
       'minimum_score' => $settings->get('minimum_score'),
       'content_type' => $node->bundle(),
       'nid' => $node->id(),
+      'ecoindex_field_name' => $ecoindexField,
     ];
   }
 }

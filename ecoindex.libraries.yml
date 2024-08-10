@@ -15,4 +15,4 @@ cnumr.ecoindex_js:
     name: CC-BY-NC-ND-3.0
     url: https://github.com/cnumr/ecoindex_js/blob/1.x/LICENSE
   js:
-    js/ecoindex_js.js: { }
+    js/ecoindex.js: { }
