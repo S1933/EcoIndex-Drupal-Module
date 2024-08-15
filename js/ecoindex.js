@@ -100,7 +100,8 @@ function computeEcoIndex(dom, req, size) {
  */
 function computeQuantile(quantiles, value) {
   for (let i = 1; i < quantiles.length; i++) {
-    if (value < quantiles[i]) return i - 1 + (value - quantiles[i - 1]) / (quantiles[i] - quantiles[i - 1]);
+    if (value < quantiles[i]) { return i - 1 + (value - quantiles[i - 1]) / (quantiles[i] - quantiles[i - 1]);
+    }
   }
   return quantiles.length - 1;
 }
@@ -112,17 +113,17 @@ function computeQuantile(quantiles, value) {
  */
 function getEcoIndexGrade(ecoIndex) {
   if (ecoIndex < 0 || ecoIndex > 100) {
-    return false;
+    return FALSE;
   }
 
   const ecoIndexGrades = getEcoIndexGradesList();
-  let name = false,
+  let name = FALSE,
     i = 0;
   do {
     if (ecoIndex > ecoIndexGrades[i].value) {
       name = ecoIndexGrades[i].grade;
     }
-  } while (name === false && i++ < ecoIndexGrades.length - 1);
+  } while (name === FALSE && i++ < ecoIndexGrades.length - 1);
 
   return name;
 }

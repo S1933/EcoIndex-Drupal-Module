@@ -8,7 +8,6 @@ use Drupal\Core\Field\WidgetBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
 
@@ -95,14 +94,14 @@ class EcoIndexWidget extends WidgetBase implements ContainerFactoryPluginInterfa
       '#title' => $this->t('EcoIndex Grade'),
       '#type' => 'select',
       '#options' => [
-          '' => '',
-          'A' => 'A',
-          'B' => 'B',
-          'C' => 'C',
-          'D' => 'D',
-          'E' => 'E',
-          'F' => 'F',
-          'G' => 'G',
+        '' => '',
+        'A' => 'A',
+        'B' => 'B',
+        'C' => 'C',
+        'D' => 'D',
+        'E' => 'E',
+        'F' => 'F',
+        'G' => 'G',
       ],
       '#default_value' => $items[$delta]->getGrade(),
       '#description' => '<p>' . $this->t('<a href="/admin/help/ecoindex" target="_blank">Contributor guidelines</a>') . '</p>',

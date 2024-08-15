@@ -27,10 +27,10 @@ class EcoIndexItem extends FieldItemBase {
    */
   public static function propertyDefinitions(FieldStorageDefinitionInterface $field_definition) {
     $properties['score'] = DataDefinition::create('integer')
-    ->setLabel(new TranslatableMarkup('EcoIndex score'));
+      ->setLabel(new TranslatableMarkup('EcoIndex score'));
 
     $properties['grade'] = DataDefinition::create('string')
-    ->setLabel(new TranslatableMarkup('EcoIndex grade'));
+      ->setLabel(new TranslatableMarkup('EcoIndex grade'));
 
     return $properties;
   }

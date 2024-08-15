@@ -53,8 +53,8 @@ class EcoIndexFieldConstraintValidator extends ConstraintValidator implements Co
   }
 
   /**
-  * {@inheritdoc}
-  */
+   * {@inheritdoc}
+   */
   public function validate($value, Constraint $constraint) {
     /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
     $entity = $this->context->getRoot()->getValue();
@@ -82,4 +82,5 @@ class EcoIndexFieldConstraintValidator extends ConstraintValidator implements Co
       }
     }
   }
+
 }

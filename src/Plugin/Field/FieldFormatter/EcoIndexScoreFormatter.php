@@ -36,4 +36,5 @@ class EcoIndexScoreFormatter extends FormatterBase {
 
     return $elements;
   }
+
 }

@@ -3,7 +3,6 @@
 namespace Drupal\ecoindex\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
-use Drupal\Core\Form\ConfigTarget;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
@@ -55,9 +54,9 @@ class EcoIndexSettingsForm extends ConfigFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->config('ecoindex.settings')
-    ->set('minimum_score', $form_state->getValue('minimum_score'))
-    ->set('required_to_publish', $form_state->getValue('required_to_publish'))
-    ->save();
+      ->set('minimum_score', $form_state->getValue('minimum_score'))
+      ->set('required_to_publish', $form_state->getValue('required_to_publish'))
+      ->save();
 
     parent::submitForm($form, $form_state);
   }
