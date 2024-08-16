@@ -47,6 +47,8 @@ function ecoindex_page_attachments_alter(array &$attachments) {
   if ($route_name === 'entity.node.preview') {
     // Get current node.
     $node = \Drupal::routeMatch()->getParameter('node_preview');
+
+    // Get EcoIndex field_name if exists.
     $ecoindexField = \Drupal::service('ecoindex.helper')->getEcoIndexFieldName($node->getFields());
     if ($ecoindexField && $node->preview_view_mode === 'full') {
       // Add ecoindex library.
@@ -72,11 +74,18 @@ function ecoindex_page_attachments_alter(array &$attachments) {
   if ($route_name === 'entity.node.edit_form') {
     // Get current node.
     $node = \Drupal::routeMatch()->getParameter('node');
-    $attachments['#attached']['library'][] = 'ecoindex/ecoindex.edit';
-    // Send related information to drupalSettings.
-    $attachments['#attached']['drupalSettings']['ecoindex'] = [
-      'nid' => $node->id(),
-    ];
+
+    // Get EcoIndex field_name if exists.
+    $ecoindexField = \Drupal::service('ecoindex.helper')->getEcoIndexFieldName($node->getFields());
+    if ($ecoindexField) {
+      $attachments['#attached']['library'][] = 'ecoindex/ecoindex.edit';
+      // Send related information to drupalSettings.
+      $attachments['#attached']['drupalSettings']['ecoindex'] = [
+        'nid' => $node->id(),
+        'field' => $ecoindexField,
+      ];
+    }
+
   }
 }
 

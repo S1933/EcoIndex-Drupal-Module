@@ -12,7 +12,7 @@ use Drupal\Core\TypedData\DataDefinition;
  *
  * @FieldType(
  *   id = "ecoindex",
- *   label = @Translation("EcoIndex field"),
+ *   label = @Translation("EcoIndex"),
  *   module = "ecoindex",
  *   description = @Translation("Store EcoIndex score and grade value."),
  *   default_widget = "ecoindex_widget",
