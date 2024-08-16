@@ -20,7 +20,7 @@
 
   const minimumScore = drupalSettings.ecoindex.minimum_score;
   if (minimumScore > 0 && score < minimumScore) {
-    messages.add(`You have not reached the minimum score(${minimumScore}) defined.`, { type: "warning" });
+    messages.add(`You have not reached the minimum score (${minimumScore}) defined.`, { type: "warning" });
   }
 
   const currentScore = Math.round(Number(drupalSettings.ecoindex.score));

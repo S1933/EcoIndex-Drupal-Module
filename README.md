@@ -46,13 +46,14 @@ CONFIGURATION
 WORKFLOW
 ---------------
 
- * Get EcoIndex value from Preview of node.
+ * Add EcoIndex field type to the node.
+ * Go the Preview route to get EcoIndex value.
  * Return on edit form page and save the node to store the EcoIndex value.
 
 References
 -----------
 
- * Official JS library repository: https://github.com/cnumr/ecoindex_js
+ * Official JS library repository: https://github.com/cnumr/GreenIT-Analysis
  * Official EcoIndex website: https://www.ecoindex.fr
  * Official GreenIt website: https://www.greenit.fr
 

@@ -26,10 +26,11 @@ ecoindex.icon:
     - field_ui/drupal.field_ui.manage_fields
 
 cnumr.ecoindex:
-  remote: https://github.com/cnumr/ecoindex_js
-  version: 1.0.5
+  remote: https://github.com/cnumr/GreenIT-Analysis/blob/master/script/ecoIndex.js
+  version: 3.0.1
   license:
-    name: CC-BY-NC-ND-3.0
-    url: https://github.com/cnumr/ecoindex_js/blob/1.x/LICENSE
+    name: GNU-GPL-2.0-or-later
+    url: https://raw.githubusercontent.com/cnumr/GreenIT-Analysis/master/LICENSE
+    gpl-compatible: true
   js:
     js/ecoindex.js: { }
