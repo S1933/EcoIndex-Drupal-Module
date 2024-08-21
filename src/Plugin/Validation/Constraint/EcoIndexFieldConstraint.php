@@ -14,6 +14,11 @@ use Symfony\Component\Validator\Constraint;
  */
 class EcoIndexFieldConstraint extends Constraint {
 
+  /**
+   * The alert message.
+   *
+   * @var string
+   */
   public $needsValue = 'Minimum EcoIndex %value it required to published.';
 
 }

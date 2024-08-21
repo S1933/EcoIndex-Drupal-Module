@@ -29,19 +29,18 @@ RECOMMENDED MODULES
 OPTIONNAL MODULES
 -------------------
 
- * Diff (https://drupal.org/project/diff): (New Diff plugin to compare EcoIndex values)
+ * Diff (https://drupal.org/project/diff).
 
 INSTALLATION
 ------------
 
- * Install as usual, see
-   https://www.drupal.org/docs/8/extending-drupal-8/installing-contributed-modules-find-import-enable-configure-drupal-8 for further
-   information.
+ * Install as you would normally install a contributed Drupal module. Visit
+   https://www.drupal.org/node/1897420 for further information.
 
 CONFIGURATION
 -------------
 
- * Configuration > EcoIndex settings (minimum score and boolean if it required to published)
+ * Configuration > EcoIndex settings.
 
 WORKFLOW
 ---------------

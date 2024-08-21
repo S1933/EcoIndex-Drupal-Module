@@ -35,18 +35,25 @@ function computeEcoIndex(dom, req, size) {
 
 function computeQuantile(quantiles, value) {
   for (let i = 1; i < quantiles.length; i++) {
-    if (value < quantiles[i]) return i - 1 + (value - quantiles[i - 1]) / (quantiles[i] - quantiles[i - 1]);
+    if (value < quantiles[i]) { return i - 1 + (value - quantiles[i - 1]) / (quantiles[i] - quantiles[i - 1]);
+    }
   }
   return quantiles.length - 1;
 }
 
 function getEcoIndexGrade(ecoIndex) {
-  if (ecoIndex > 80) return "A";
-  if (ecoIndex > 70) return "B";
-  if (ecoIndex > 55) return "C";
-  if (ecoIndex > 40) return "D";
-  if (ecoIndex > 25) return "E";
-  if (ecoIndex > 10) return "F";
+  if (ecoIndex > 80) { return "A";
+  }
+  if (ecoIndex > 70) { return "B";
+  }
+  if (ecoIndex > 55) { return "C";
+  }
+  if (ecoIndex > 40) { return "D";
+  }
+  if (ecoIndex > 25) { return "E";
+  }
+  if (ecoIndex > 10) { return "F";
+  }
   return "G";
 }
 

@@ -9,7 +9,7 @@ class EcoIndexHelper {
 
   /**
    * Get EcoIndex field name from array of fields.
-
+   *
    * @return string|null
    *   Field name if exists.
    */
