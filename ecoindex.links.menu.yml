@@ -1,5 +1,5 @@
 ecoindex.settings:
   title: 'EcoIndex settings'
   parent: system.admin_config_services
-  description: "Configure EcoIndex module."
+  description: 'Configure EcoIndex module.'
   route_name: ecoindex.settings

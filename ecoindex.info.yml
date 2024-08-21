@@ -1,5 +1,5 @@
 name: EcoIndex
-description : 'Provides an implementation of EcoIndex service.'
+description: 'Provides an implementation of EcoIndex service.'
 package: EcoIndex
 type: module
 core_version_requirement: ^9.4 || ^10 || ^11
