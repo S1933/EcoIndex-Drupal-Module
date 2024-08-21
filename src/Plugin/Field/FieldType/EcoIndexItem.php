@@ -58,20 +58,6 @@ class EcoIndexItem extends FieldItemBase {
   /**
    * {@inheritdoc}
    */
-  public function getGrade(): string {
-    return $this->grade ?: '';
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function getScore(): int {
-    return $this->score ?: 0;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public static function mainPropertyName() {
     return 'score';
   }

@@ -87,7 +87,7 @@ class EcoIndexWidget extends WidgetBase implements ContainerFactoryPluginInterfa
       '#type' => 'number',
       '#min' => 0,
       '#max' => 100,
-      '#default_value' => $item->getScore(),
+      '#default_value' => $item->score ?? 0,
     ];
 
     $element['grade'] = [
@@ -103,7 +103,7 @@ class EcoIndexWidget extends WidgetBase implements ContainerFactoryPluginInterfa
         'F' => 'F',
         'G' => 'G',
       ],
-      '#default_value' => $items[$delta]->getGrade(),
+      '#default_value' => $items[$delta]->grade ?? '',
       '#description' => '<p>' . $this->t('<a href="/admin/help/ecoindex" target="_blank">Contributor guidelines</a>') . '</p>',
     ];
 

@@ -27,7 +27,7 @@ class EcoIndexGradeFormatter extends FormatterBase {
     foreach ($items as $delta => $item) {
       $entity = $items->getEntity();
       $elements[$delta] = [
-        '#plain_text' => $item->getGrade(),
+        '#plain_text' => $item->grade,
         '#cache' => [
           'tags' => $entity->getCacheTags(),
         ],

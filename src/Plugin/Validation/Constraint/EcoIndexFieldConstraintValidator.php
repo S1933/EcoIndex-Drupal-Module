@@ -74,7 +74,7 @@ class EcoIndexFieldConstraintValidator extends ConstraintValidator implements Co
       $minimum_score = $this->configFactory
         ->get('ecoindex.settings')
         ->get('minimum_score');
-      $score = $value->getScore();
+      $score = $value->score ?? 0;
       if ($value > 0 && $minimum_score > $score) {
         $this->context->addViolation($constraint->needsValue, [
           '%value' => $minimum_score,

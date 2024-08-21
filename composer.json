@@ -1,0 +1,26 @@
+{
+    "name": "drupal/ecoindex",
+    "description": "Allow unique path alias by domain entity for different contents.",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+          "name": "Celine Deis Nuel (cdeisnuel)",
+          "homepage": "https://www.drupal.org/u/cdeisnuel",
+          "role": "Maintainer"
+        },
+        {
+          "name": "Jean-Philippe Deis Nuel (s1933)",
+          "homepage": "https://www.drupal.org/u/s1933",
+          "role": "Maintainer"
+        }
+    ],
+    "support": {
+        "issues": "https://www.drupal.org/project/issues/ecoindex",
+        "source": "https://git.drupalcode.org/project/ecoindex"
+    },
+    "minimum-stability": "dev",
+    "type": "drupal-module",
+    "require": {
+        "drupal/diff": "^1.7"
+    }
+}

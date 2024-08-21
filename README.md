@@ -3,7 +3,6 @@ CONTENTS OF THIS FILE
 
  * Introduction
  * Recommended modules
- * Optionnal modules
  * Installation
  * Configuration
  * Workflow
@@ -22,11 +21,6 @@ INTRODUCTION
    https://drupal.org/project/issues/ecoindex
 
 RECOMMENDED MODULES
--------------------
-
- * No extra module is required.
-
-OPTIONNAL MODULES
 -------------------
 
  * Diff (https://drupal.org/project/diff).

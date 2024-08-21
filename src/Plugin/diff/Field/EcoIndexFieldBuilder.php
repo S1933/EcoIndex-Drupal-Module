@@ -30,11 +30,11 @@ class EcoIndexFieldBuilder extends FieldDiffBuilderBase {
       if (!$field_item->isEmpty()) {
         // Compare the score if that plugin options is selected.
         if ($this->configuration['compare_score']) {
-          $result[$field_key][] = $field_item->getScore();
+          $result[$field_key][] = $field_item->score;
         }
         // Compare the grade if that plugin options is selected.
         if ($this->configuration['compare_grade']) {
-          $result[$field_key][] = $field_item->getGrade();
+          $result[$field_key][] = $field_item->grade;
         }
       }
     }

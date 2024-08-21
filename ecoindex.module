@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Hook implemtations for ecoindex module.
+ * Hook implementations for ecoindex module.
  */
 
 use Drupal\Core\Field\FieldTypeCategoryManagerInterface;
